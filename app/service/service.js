@@ -1,5 +1,4 @@
 const { authorization, timeout, urlConfig } = require('../config/urlConfig');
-const { findRequest } = require('../request/axios_service');
 const axiosService = require('../request/axios_service');
 const { utilFrom } = require('../util/util');
 
@@ -32,6 +31,27 @@ module.exports = {
         } catch (error) {
             throw error
         }
+    },
+
+    async saveMetric(body){
+        try {
+            let { clinic_id, clinic_name, physician_id, physician_name, physician_crm, patient_id, patient_name, patient_email, patient_phone } = body;
+            
+            if(!clinic_id || !physician_id || !physician_name || !physician_crm || !patient_id || !patient_name || !patient_email || !patient_phone){
+                let err = 'Verifique os campos. Apenas o nome da clinica não é obrigatório!';
+                console.log(err)
+                throw err
+                
+            }
+
+            let url =  `${urlConfig.url}metrics`;
+
+            return await axiosService.saveMetric(body, url, authorization.metrics, timeout.metrics);
+            
+            } catch (error) {
+                throw error
+        }
+
     }
 }
 
