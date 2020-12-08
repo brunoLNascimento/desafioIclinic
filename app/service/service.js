@@ -41,17 +41,13 @@ module.exports = {
                 let err = 'Verifique os campos. Apenas o nome da clinica não é obrigatório!';
                 console.log(err)
                 throw err
-                
             }
 
             let url =  `${urlConfig.url}metrics`;
-
             return await axiosService.saveMetric(body, url, authorization.metrics, timeout.metrics);
-            
             } catch (error) {
                 throw error
         }
-
     }
 }
 
