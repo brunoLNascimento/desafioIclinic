@@ -2,7 +2,7 @@ const clinic = require('../controllers/clinic_controller');
 const physician  = require('../controllers/physician_controller');
 const patient  = require('../controllers/patient_controller');
 const metric  = require('../controllers/metric_controller');
-
+const prescriptions = require('../controllers/prescription_controller');
 
 
 module.exports = function(server) {	
@@ -10,5 +10,6 @@ module.exports = function(server) {
 	server.get('/physician/:id?', physician.find);
 	server.get('/patient/:id?', patient.find);
 	server.post('/metrics', metric.save);
+	server.post('/v2/prescriptions', prescriptions.savePrescription);
 
 }

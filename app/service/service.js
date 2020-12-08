@@ -1,6 +1,7 @@
 const { authorization, timeout, urlConfig } = require('../config/urlConfig');
 const axiosService = require('../request/axios_service');
 const { utilFrom } = require('../util/util');
+const dao = require("../dao/prescription_dao")
 
 module.exports = {
     async find(from, id){
@@ -47,6 +48,21 @@ module.exports = {
             return await axiosService.saveMetric(body, url, authorization.metrics, timeout.metrics);
             } catch (error) {
                 throw error
+        }
+    },
+
+    async savePrescription(body){
+        try {
+            let { clinic_id, patient_id, physician_id, prescription} = body;
+            if( !clinic_id || !patient_id || !physician_id || !prescription ){
+                throw "Todos os campos são obrigatórios";
+            }
+
+            return await dao.save(body)
+            
+
+        } catch (error) {
+            throw error
         }
     }
 }
