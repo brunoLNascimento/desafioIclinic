@@ -8,9 +8,9 @@ module.exports = {
             timeout: timeout,
             Authorization: token
         }).then( response => {
-            return response;
+            return response.data;
         }).catch( error => {
-            throw error;
+            return error;
         })
     },
 

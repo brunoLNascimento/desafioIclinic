@@ -2,33 +2,60 @@ const { authorization, timeout, urlConfig } = require('../config/urlConfig');
 const axiosService = require('../request/axios_service');
 const { utilFrom } = require('../util/util');
 const dao = require("../dao/prescription_dao")
+const dto = require('../dto/prescription_dto')
 
 module.exports = {
-    async find(from, id){
+    async find(body){
         try {
             let url = '';
             let bearer = '';
             let time = '';
+            let data = {};
+        
 
-            switch(from){
-                case utilFrom.clinic: 
-                    url = `${urlConfig.url}clinics/${id}`;
-                    bearer = authorization.clinics;
-                    time = timeout.clinics;
-                    break
-                case utilFrom.physician:
-                    url = `${urlConfig.url}physicians/${id}`;
-                    bearer = authorization.physicians;
-                    time = timeout.physicians;
-                    break
-                case utilFrom.patient:
-                    url = `${urlConfig.url}patients/${id}`;
-                    bearer = authorization.patients;
-                    time = timeout.patients;
-                    break
+            if(body.clinic.id){
+                url = `${urlConfig.url}clinics/${body.clinic.id}`;
+                bearer = authorization.clinics;
+                time = timeout.clinics;
+                let clinic = await axiosService.findRequest(url, bearer, time);
+                
+                if(!clinic.message)
+                    data.clinic = clinic;
+                else
+                    console.log("clinic not found");
             }
 
-            return await axiosService.findRequest(url, bearer, time)
+            if(body.physician.id){
+                url = `${urlConfig.url}physicians/${body.physician.id}`;
+                bearer = authorization.physicians;
+                time = timeout.physicians;
+                let physician = await axiosService.findRequest(url, bearer, time);
+                
+                if(physician.message){
+                    physician.from = "physician";
+                    throw physician;
+                }else{
+                    data.physician = physician;
+                }
+            }
+
+            if(body.patient.id){
+                url = `${urlConfig.url}patients/${body.patient.id}`;
+                bearer = authorization.patients;
+                time = timeout.patients;
+                let patient = await axiosService.findRequest(url, bearer, time);
+                
+                if(patient.message){
+                    patient.from = "patient";
+                    throw patient;
+                }else{
+                    data.patient = patient;
+                }
+            }
+            data.text = body.text;
+
+
+            return dto.prescriptionDto(data);
         } catch (error) {
             throw error
         }
@@ -53,12 +80,14 @@ module.exports = {
 
     async savePrescription(body){
         try {
-            let { clinic_id, patient_id, physician_id, prescription} = body;
-            if( !clinic_id || !patient_id || !physician_id || !prescription ){
+            //preciso seprar as chamadas e montar um schema para salvar os dados
+            let { clinic, patient, physician, text} = body;
+            if( !clinic.id || !patient.id || !physician.id || !text ){
                 throw "Todos os campos são obrigatórios";
             }
-
-            return await dao.save(body)
+            let data = await this.find(body);
+            console.log(data)
+            return await dao.save(data)
             
 
         } catch (error) {
