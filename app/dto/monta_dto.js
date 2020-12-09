@@ -1,9 +1,28 @@
 const { utilFrom } = require('../util/util')
 module.exports = {
+    buildRes(respondeBody, from){
+        let dto = {};
+        switch(respondeBody.status == 201 && from){
+            case utilFrom.metric:
+                dto = respondeBody.data
+                break;
+        }
+
+        return dto;
+    },
+
     error(erro, from){
         let dto = {};
+
+        if(!erro.response){
+           return dto = { error: { 
+                    message: "malformed request",
+                    code: '01'
+                } 
+            }
+        };
         
-        switch(erro.response.status == 404 && from){
+        switch(erro.response.status === 404 && from){
             case utilFrom.clinic:
                 dto = { error: { 
                     message: from + ' not found',
@@ -41,7 +60,7 @@ module.exports = {
                     }
         };
 
-        switch(erro.response.status !== 404 && from){
+        switch(erro.response.status != 404 && from){
             case utilFrom.clinic:
                 dto = { error: { 
                     message: from + ' not found',

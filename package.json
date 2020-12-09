@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 30000 test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,12 @@
     "axios": "^0.21.0",
     "body-parser": "^1.18.3",
     "consign": "^0.1.6",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mocha": "^8.2.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^2.0.5",
+    "sequelize-transactions": "^1.0.1",
+    "supertest": "^6.0.1"
   }
 }
