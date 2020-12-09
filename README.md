@@ -41,4 +41,4 @@ $ npm run test -- Executar os testes do sistema.
 # Caso queira consultar clinic, physician e patient antes de criar a prescrição, você pode utilizar as urls
 - localhost:3003/clinic/:id?
 - localhost:3003/physician/:id?
-- localhost:3003/physician/:id?
+- localhost:3003/patient/:id?
