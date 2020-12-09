@@ -22,7 +22,8 @@ module.exports.savePrescription = async function(req, res){
 module.exports.getPrescription = async function(req, res){
     try {
         let id = req.params.id;
-        let saved = await service.getPrescription(id);
+        let page = req. params.page;
+        let saved = await service.getPrescription(id, page);
         return res.status(200).send(saved);
     } catch (error) {
         if(error.response){
