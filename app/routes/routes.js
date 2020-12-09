@@ -11,5 +11,7 @@ module.exports = function(server) {
 	server.get('/patient/:id?', patient.find);
 	server.post('/metrics', metric.save);
 	server.post('/v2/prescriptions', prescriptions.savePrescription);
+	server.get('/v2/prescriptions/:id?', prescriptions.getPrescription);
+
 
 }

@@ -4,6 +4,7 @@ const axiosService = require('../request/axios_service');
 const dao = require("../dao/prescription_dao")
 const dto = require('../dto/prescription_dto')
 const metricDto = require('../dto/metrics_dto');
+const prescription = require('../models/prescription_models');
 
 module.exports = {
     async find(body){
@@ -84,6 +85,18 @@ module.exports = {
             return prescriptionSaved
         } catch (error) {
             t1.rollback();
+            throw error
+        }
+    },
+
+    async getPrescription(id){
+        try {
+            let where = {};
+            if(id)
+                where = { prescriptionId: id };
+
+            return await dao.find(where);
+        } catch (error) {
             throw error
         }
     }
