@@ -9,7 +9,6 @@ module.exports = {
             patient_name: body.patientName, 
             patient_email: body.patientEmail, 
             patient_phone: body.patientPhone, 
-
         }
         return dto;
     }
