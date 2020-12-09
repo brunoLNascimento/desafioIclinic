@@ -22,7 +22,7 @@ module.exports = {
             }
         };
         
-        switch(erro.response.status == 404 && from){
+        switch(erro.response.status === 404 && from){
             case utilFrom.clinic:
                 dto = { error: { 
                     message: from + ' not found',
@@ -60,7 +60,7 @@ module.exports = {
                     }
         };
 
-        switch(erro.response.status !== 404 && from){
+        switch(erro.response.status != 404 && from){
             case utilFrom.clinic:
                 dto = { error: { 
                     message: from + ' not found',

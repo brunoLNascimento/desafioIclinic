@@ -1,8 +1,9 @@
+const connection = require('../config/sequelize')
 const { authorization, timeout, urlConfig } = require('../config/urlConfig');
 const axiosService = require('../request/axios_service');
-const { utilFrom } = require('../util/util');
 const dao = require("../dao/prescription_dao")
 const dto = require('../dto/prescription_dto')
+const metricDto = require('../dto/metrics_dto');
 
 module.exports = {
     async find(body){
@@ -61,36 +62,31 @@ module.exports = {
         }
     },
 
-    async saveMetric(body){
+    async saveMetric(body, t1){
         try {
-            let { clinic_id, clinic_name, physician_id, physician_name, physician_crm, patient_id, patient_name, patient_email, patient_phone } = body;
-            
-            if(!clinic_id || !physician_id || !physician_name || !physician_crm || !patient_id || !patient_name || !patient_email || !patient_phone){
-                let err = 'Verifique os campos. Apenas o nome da clinica não é obrigatório!';
-                console.log(err)
-                throw err
-            }
-
+            let dtoMetric = metricDto.metric(body)
             let url =  `${urlConfig.url}metrics`;
-            return await axiosService.saveMetric(body, url, authorization.metrics, timeout.metrics);
+            return await axiosService.saveMetric(dtoMetric, url, authorization.metrics, timeout.metrics);
             } catch (error) {
                 throw error
         }
     },
 
     async savePrescription(body){
+        let t1 = await connection.sequelize().transaction({autocommit: false});
         try {
-            //preciso seprar as chamadas e montar um schema para salvar os dados
             let { clinic, patient, physician, text} = body;
-            if( !clinic.id || !patient.id || !physician.id || !text ){
+            if( !clinic.id || !patient.id || !physician.id || !text )
                 throw "Todos os campos são obrigatórios";
-            }
-            let data = await this.find(body);
-            console.log(data)
-            return await dao.save(data)
             
-
+            let data = await this.find(body);
+            let prescriptionSaved = await dao.save(data, t1);
+            await this.saveMetric(data, t1);
+            
+            t1.commit();
+            return prescriptionSaved
         } catch (error) {
+            t1.rollback();
             throw error
         }
     }

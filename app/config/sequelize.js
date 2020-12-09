@@ -6,11 +6,13 @@ module.exports.sequelize = function (){
     host: config.mysql.host,
     port: config.mysql.port,
     loggin: true,
+    insecureAuth : true,
     dialect: "mysql", //log: console.log
     define: { 
       freezeTableName: true,
       timestamps: false
     }
   });
+
   return sequelize
 }

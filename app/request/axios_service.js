@@ -21,6 +21,7 @@ module.exports = {
         }).then( response => {
             return response;
         }).catch( error => {
+            error.from = "metric"
             throw error;
         })
     }

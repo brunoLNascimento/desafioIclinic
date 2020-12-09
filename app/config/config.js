@@ -3,7 +3,7 @@ module.exports = {
         host: 'localhost',
         database: 'iclinic',
         user: 'root',
-        password: 'password',
+        password: 'PASSWORD',
         port: 3306
     }
 };
