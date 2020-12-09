@@ -38,7 +38,7 @@ $ npm run test -- Executar os testes do sistema.
 - EX: localhost:3003/v2/prescriptions/0/1 - a consulta irá retornar a prescrição com o ID 1 e
 - EX: localhost:3003/v2/prescriptions/1/ - a consulta irá pular os primeiros 50 registro e retornar os 50 próximos registros na base:
 
-- Caso queira consultar clinic, physician e patient antes de criar a prescrição, você pode utilizar as urls
+# Caso queira consultar clinic, physician e patient antes de criar a prescrição, você pode utilizar as urls
 - localhost:3003/clinic/:id?
 - localhost:3003/physician/:id?
 - localhost:3003/physician/:id?
