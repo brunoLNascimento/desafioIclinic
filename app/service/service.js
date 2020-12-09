@@ -13,7 +13,6 @@ module.exports = {
             let time = '';
             let data = {};
         
-
             if(body.clinic.id){
                 url = `${urlConfig.url}clinics/${body.clinic.id}`;
                 bearer = authorization.clinics;
@@ -54,8 +53,6 @@ module.exports = {
                 }
             }
             data.text = body.text;
-
-
             return dto.prescriptionDto(data);
         } catch (error) {
             throw error
@@ -82,7 +79,7 @@ module.exports = {
             let data = await this.find(body);
             let prescriptionSaved = await dao.save(data, t1);
             await this.saveMetric(data, t1);
-            
+
             t1.commit();
             return prescriptionSaved
         } catch (error) {
