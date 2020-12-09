@@ -15,7 +15,7 @@ $ npm run test -- Executar os testes do sistema.
 - O sistema rodará na porta 3003
 - Salvando uma prescrição
 
-Na ferramenta POSTMAN (ou qualquer uma de sua preferência), selecione a opção "POST", inclua a URL: localhost:3003/v2/prescriptions, abaixo segue um JSON de exemplo:
+- Na ferramenta POSTMAN (ou qualquer uma de sua preferência), selecione a opção "POST", inclua a URL: localhost:3003/v2/prescriptions, abaixo segue um JSON de exemplo:
   {
       "clinic": {
           "id": 1
@@ -30,12 +30,12 @@ Na ferramenta POSTMAN (ou qualquer uma de sua preferência), selecione a opção
 }
 
 - Consultando a prescrição salva
-Na ferramenta POSTMAN (ou qualquer uma de sua preferência), selecione a opção "GET", inclua a URL: localhost:3003/v2/prescriptions/:page/:id?, abaixo segue um JSON de exemplo:
-O ID no final da url é opcional, sendo assim, quando consultado com um ID, o sistema retornará a prescrição consultado pelo ID, caso não seja enviada nenhum ID, será consultado todas as prescrições:
-Page (página) é obrigatório, sendo assim, será sempre necessário enviar um número para a páginação:
-EX: localhost:3003/v2/prescriptions/0/ - a consulta irá retornar os 50 primeiros registros na base,
-EX: localhost:3003/v2/prescriptions/0/1 - a consulta irá retornar a prescrição com o ID 1 e
-EX: localhost:3003/v2/prescriptions/1/ - a consulta irá pular os primeiros 50 registro e retornar os 50 próximos registros na base:
+- Na ferramenta POSTMAN (ou qualquer uma de sua preferência), selecione a opção "GET", inclua a URL: localhost:3003/v2/prescriptions/:page/:id?, abaixo segue um JSON de exemplo:
+- O ID no final da url é opcional, sendo assim, quando consultado com um ID, o sistema retornará a prescrição consultado pelo ID, caso não seja enviada nenhum ID, será consultado todas as prescrições:
+- Page (página) é obrigatório, sendo assim, será sempre necessário enviar um número para a páginação:
+- EX: localhost:3003/v2/prescriptions/0/ - a consulta irá retornar os 50 primeiros registros na base,
+- EX: localhost:3003/v2/prescriptions/0/1 - a consulta irá retornar a prescrição com o ID 1 e
+- EX: localhost:3003/v2/prescriptions/1/ - a consulta irá pular os primeiros 50 registro e retornar os 50 próximos registros na base:
 
 - Caso queira consultar clinic, physician e patient antes de criar a prescrição, você pode utilizar as urls
 - localhost:3003/clinic/:id?
