@@ -13,9 +13,10 @@ $ npm run test -- Executar os testes do sistema.
 ```
 
 - O sistema rodará na porta 3003
-- Salvando uma prescrição
+# Salvando uma prescrição
 
 - Na ferramenta POSTMAN (ou qualquer uma de sua preferência), selecione a opção "POST", inclua a URL: localhost:3003/v2/prescriptions, abaixo segue um JSON de exemplo:
+  ```sh
   {
       "clinic": {
           "id": 1
@@ -28,8 +29,8 @@ $ npm run test -- Executar os testes do sistema.
       },
       "text": "Dipirona 1x ao dia"
 }
-
-- Consultando a prescrição salva
+```
+# Consultando a prescrição salva
 - Na ferramenta POSTMAN (ou qualquer uma de sua preferência), selecione a opção "GET", inclua a URL: localhost:3003/v2/prescriptions/:page/:id?, abaixo segue um JSON de exemplo:
 - O ID no final da url é opcional, sendo assim, quando consultado com um ID, o sistema retornará a prescrição consultado pelo ID, caso não seja enviada nenhum ID, será consultado todas as prescrições:
 - Page (página) é obrigatório, sendo assim, será sempre necessário enviar um número para a páginação:
