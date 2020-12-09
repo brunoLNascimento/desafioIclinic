@@ -11,6 +11,10 @@ module.exports.sequelize = function (){
     define: { 
       freezeTableName: true,
       timestamps: false
+    },
+    pool: {
+      acquire: 300,
+      idle: 100
     }
   });
 
