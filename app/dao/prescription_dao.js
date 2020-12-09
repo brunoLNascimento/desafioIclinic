@@ -1,5 +1,6 @@
-const { find } = require('../models/prescription_models');
+const { request } = require('express');
 const prescription = require('../models/prescription_models');
+const { limit } = require("../config/urlConfig")
 
 module.exports = {
     async save(body, t1){
@@ -11,8 +12,12 @@ module.exports = {
         })
     },
 
-    async find(where){
-        return await prescription.findAll( where = { where } ).then( data => {
+    async find(where, offset){
+        return await prescription.findAll({
+            where: where,
+            offset: offset,
+            limit: limit, 
+        }).then( data => {
             return data
         }).catch( error => {
             console.log('Error: ' +error)

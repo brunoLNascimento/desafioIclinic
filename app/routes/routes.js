@@ -14,5 +14,5 @@ module.exports = function(server) {
 	server.post('/v2/prescriptions', prescriptions.savePrescription);
 	
 	//busca prescrição na base
-	server.get('/v2/prescriptions/:id?', prescriptions.getPrescription);
+	server.get('/v2/prescriptions/:page/:id?', prescriptions.getPrescription);
 }

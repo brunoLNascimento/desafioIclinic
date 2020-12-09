@@ -1,5 +1,5 @@
 const connection = require('../config/sequelize')
-const { authorization, timeout, urlConfig } = require('../config/urlConfig');
+const { authorization, timeout, urlConfig, limit } = require('../config/urlConfig');
 const axiosService = require('../request/axios_service');
 const dao = require("../dao/prescription_dao")
 const dto = require('../dto/prescription_dto')
@@ -89,13 +89,20 @@ module.exports = {
         }
     },
 
-    async getPrescription(id){
+    async getPrescription(id, page){
         try {
             let where = {};
             if(id)
                 where = { prescriptionId: id };
 
-            return await dao.find(where);
+            if(isNaN(page)){
+                let error = "paginação é um item obrigatório e deve ser numérico"
+                console.log(error);
+                throw error;
+            }
+
+            let offset = page * limit;
+            return await dao.find(where, offset);
         } catch (error) {
             throw error
         }
