@@ -1,7 +1,6 @@
 const clinic = require('../controllers/clinic_controller');
 const physician  = require('../controllers/physician_controller');
 const patient  = require('../controllers/patient_controller');
-const metric  = require('../controllers/metric_controller');
 const prescriptions = require('../controllers/prescription_controller');
 
 
