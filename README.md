@@ -16,19 +16,19 @@ $ npm run test -- Executar os testes do sistema.
 # Salvando uma prescrição
 
 - Na ferramenta POSTMAN (ou qualquer uma de sua preferência), selecione a opção "POST", inclua a URL: localhost:3003/v2/prescriptions, abaixo segue um JSON de exemplo:
-  ```sh
-  {
-      "clinic": {
-          "id": 1
-      },
-      "physician": {
-          "id": 1
-      },
-      "patient": {
-          "id": 1
-      },
-      "text": "Dipirona 1x ao dia"
-}
+```sh
+    {
+        "clinic": {
+            "id": 1
+        },
+        "physician": {
+            "id": 1
+        },
+        "patient": {
+            "id": 1
+        },
+        "text": "Dipirona 1x ao dia"
+    }
 ```
 # Consultando a prescrição salva
 - Na ferramenta POSTMAN (ou qualquer uma de sua preferência), selecione a opção "GET", inclua a URL: localhost:3003/v2/prescriptions/:page/:id?, abaixo segue um JSON de exemplo:
